@@ -1,0 +1,52 @@
+<ion-menu side="start" type="push" contentId="main" menuId="leftMenu">
+  <ion-header>
+    <ion-toolbar color="danger">
+      <ion-title>Left menu</ion-title>
+      <ion-buttons slot="end">
+        <ion-menu-button color="light" menu="leftMenu">
+          <ion-icon name="close"></ion-icon>
+        </ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content style="cursor: pointer;">
+    <ion-menu-toggle>
+      <ion-list>
+        <ion-item [routerLink]="['/restaurant-home']">
+          <ion-icon color="danger" name="restaurant-outline"></ion-icon>&nbsp;&nbsp;Restaurant home
+        </ion-item>
+        <ion-item *ngIf="userservice.businessId" [routerLink]="['/add-food-item','add']">
+          <ion-icon color="danger" name="add-outline"></ion-icon>&nbsp;&nbsp;Add food item
+        </ion-item>
+        <ion-item *ngIf="userservice.businessId" [routerLink]="['/edit-food-items']">
+          <ion-icon color="danger" name="create-outline"></ion-icon>&nbsp;&nbsp;Edit food item
+        </ion-item>
+        <ion-item *ngIf="!userservice.businessId" [routerLink]="['/login','SignUp']">
+          <ion-icon color="danger" name="person-circle-outline"></ion-icon>&nbsp;&nbsp;Sign Up
+        </ion-item>
+        <ion-item *ngIf="!userservice.businessId" [routerLink]="['/login','SignIn']">
+          <ion-icon color="danger" name="person-circle-outline"></ion-icon> &nbsp;&nbsp;Sign In
+        </ion-item>
+        <ion-item *ngIf="userservice.businessId" [routerLink]="['/shopping-edit']">
+          <ion-icon color="danger" name="cart-outline"></ion-icon>&nbsp;&nbsp;Shopping cart
+        </ion-item>
+        <!-- <ion-item [routerLink]="['/recipes']">
+          <ion-icon color="danger" name="book-outline"></ion-icon>&nbsp;&nbsp;Recipe home
+        </ion-item>
+        <ion-item *ngIf="userservice.businessId" [routerLink]="['/add-recipe']" [queryParams]="{Recipetype :'add'}">
+          <ion-icon color="danger" name="add-outline"></ion-icon>&nbsp;&nbsp;Add recipes
+        </ion-item>
+        <ion-item *ngIf="userservice.businessId" [routerLink]="['/recipes-edit']">
+          <ion-icon color="danger" name="create-outline"></ion-icon>&nbsp;&nbsp;Edit recipes
+        </ion-item> -->
+        <ion-item *ngIf="userservice.businessId" [routerLink]="['/food-category']" [queryParams]="{ type :'SuperUser'}">
+          <ion-icon color="danger" name="person-circle-outline"></ion-icon>&nbsp;&nbsp;Super User
+        </ion-item>
+        <ion-item *ngIf="userservice.userId || userservice.businessId" (click)="userLogout()">
+          <ion-icon color="danger" name="log-out-outline"></ion-icon>&nbsp;&nbsp;Logout
+        </ion-item>
+      </ion-list>
+    </ion-menu-toggle>
+  </ion-content>
+</ion-menu>
+<ion-router-outlet id="main"></ion-router-outlet>

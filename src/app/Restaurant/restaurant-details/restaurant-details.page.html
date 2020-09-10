@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-text>{{businessUserDetails.legalName}}</ion-text>
+    </ion-title>
+    <ion-buttons slot="end" *ngIf="userservice.userId">
+      <ion-badge color="light" *ngIf="this.Shopping.Total">Total: {{this.Shoppingservice.Total}}</ion-badge>&nbsp;&nbsp;
+    </ion-buttons>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-buttons slot="end" style="cursor: pointer; padding:10px" *ngIf="userservice.userId">
+      <ion-icon *ngIf="this.userservice.userId" name="cart-outline" [routerLink]="['/shopping-edit']"
+        style="font-size: 29px;"></ion-icon>
+      <ion-text *ngIf="this.Shopping.productQuantity.length > 0">{{this.Shopping.productQuantity.length}}</ion-text>
+      <ion-menu-button color="light" menu="rightMenu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="this.userservice.userId">
+
+    <ion-card>
+      <ion-card-content class="ion-text-center">
+        <img src="{{businessUserDetails.image}}" height="295px" width="500px">
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header color="success" class="ion-text-center">
+        Menu
+      </ion-card-header>
+      <ion-card-content>
+        <ul *ngFor="let categories of this.Restaurantservice.productCategories">
+          <li>
+            <ion-button (click)="test(categories.name)" fill="clear">{{categories.name}}</ion-button>
+          </li>
+        </ul>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngFor="let restaurant of foodCategory">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="4">
+              <img [src]="restaurant.image" height= 250px; width= 248px;>
+            </ion-col>
+            <ion-col size="4">
+              <ion-text>
+                <b>
+                  {{restaurant.name}}
+                </b>
+              </ion-text><br /><br />
+              <ion-text color="success" *ngIf="restaurant.description != ''">Description : {{restaurant.description}}
+              </ion-text><br /><br />
+              <ion-text>City : {{restaurant.city}}</ion-text> <br /><br />
+              <ion-text>Price : {{restaurant.price}}</ion-text>
+            </ion-col>
+            <ion-col sized="4">
+              <div *ngIf="this.userservice.userId">
+                <ion-select interface="action-sheet" placeholder="Select Quantity" okText="Okay" cancelText="Dismiss"
+                  #quantity>
+                  <ion-select-option value=1>1</ion-select-option>
+                  <ion-select-option value=2>2</ion-select-option>
+                  <ion-select-option value=3>3</ion-select-option>
+                  <ion-select-option value=4>4</ion-select-option>
+                  <ion-select-option value=5>5</ion-select-option>
+                </ion-select>
+                <ion-button fill="clear" color="danger"
+                  (click)="cartSelect(quantity,restaurant.id,restaurant.name,restaurant.image,restaurant.sellerName,restaurant.price)">
+                  Add to cart
+                </ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-title>Edit recipes</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button color="light" menu="leftMenu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="this.userservice.userId">
+    <ion-grid *ngFor="let recipes of Recipes">
+      <ion-card><br />
+        <ion-row>
+          <ion-col size="12" size-xs="4" size-md="2" size-xl="4" style="cursor: pointer; width: 100%;">
+            <img src={{recipes.image}}>
+          </ion-col>
+          <ion-col size="12" size-xs="6" size-md="10" size-xl="8" style="cursor: pointer;">
+            <b>
+              {{recipes.name}}
+            </b>
+            <ion-icon name="create" (click)="moveToAddRecipePage()"></ion-icon>
+            <br /><br />
+            <ion-text color="success">
+              &#8377; {{recipes.price}}
+            </ion-text>
+            <br /><br />
+            <ion-text color="medium">
+              {{recipes.description}}
+            </ion-text><br /><br />
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-grid>
+  </div>
+</ion-content>

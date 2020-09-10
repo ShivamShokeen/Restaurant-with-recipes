@@ -1,0 +1,38 @@
+<!-- <ion-content> -->
+<div>
+  <ion-grid>
+    <ion-row *ngIf="userAccount.name != ''">
+      <ion-col size="6" size-xs="2" size-sm="3" size-md="6" zise-xl="12" size-lg="12">
+        <!-- <ion-card>
+          <ion-card-header color="primary">
+            User account name : {{userAccount.name}}
+            <span>
+              <ion-text
+                [ngStyle]="{'color': userAccount.accountStatus === 'Active' ? 'blue' : userAccount.accountStatus === 'Inactive' ? 'red' : 'grey'}">
+                ({{userAccount.accountStatus}})
+              </ion-text>
+            </span>
+          </ion-card-header>
+          <br />
+          <ion-card-content>
+            User account number : {{userAccount.accountNumber}}
+          </ion-card-content>
+        </ion-card> -->
+        <span>
+          <ion-text
+            [ngStyle]="{'color': userAccount.accountStatus === 'Active' ? 'blue' : userAccount.accountStatus === 'Inactive' ? 'red' : 'grey'}">
+            ({{userAccount.accountStatus}})
+          </ion-text>
+        </span> 
+         <ion-text> User account name = {{userAccount.name}}</ion-text><br />
+        <ion-text>User account number = {{userAccount.accountNumber}}</ion-text><br /><br />
+      </ion-col>
+      <ion-col size="6" size-xs="2" size-sm="3" size-md="6" zise-xl="12" size-lg="12">
+        <ion-button *ngIf="userAccount.accountStatus == 'Inactive' || userAccount.accountStatus == 'Unknown'" fill="clear" (click)="serverStatusActive()">Set to 'active'</ion-button>
+        <ion-button *ngIf="userAccount.accountStatus == 'Active' || userAccount.accountStatus == 'Unknown'" fill="clear" (click)="serverStatusInactive()">Set to 'inactive'</ion-button>
+        <ion-button *ngIf="userAccount.accountStatus == 'Active' || userAccount.accountStatus == 'Inactive'" fill="clear" (click)="serverStatusUnknown()">Set to 'unknown'</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+<!-- </ion-content> -->

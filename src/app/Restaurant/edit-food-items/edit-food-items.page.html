@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Edit food</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button color="light" menu="leftMenu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="this.userservice.userId">
+  <ion-card *ngFor="let restaurant of foodList" style="cursor: pointer;">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size-xs="4" size-sm="4" size-md="4" size-lg="4" size-xl="4">
+            <img src={{restaurant.image}} height="233px" width="auto">
+          </ion-col>
+          <ion-col size-xs="8" size-sm="8" size-md="8" size-lg="8" size-xl="8">
+            <div class="ion-text-start">
+              <ion-text color="success">Name: </ion-text>
+              <ion-text>{{restaurant.name}}</ion-text><br />
+              <ion-text color="success">Price: </ion-text>
+              <ion-text>&#8377; {{restaurant.price}}</ion-text><br /><br />
+              <ion-text color="success">Description: </ion-text>
+              <ion-text>{{restaurant.description}}</ion-text><br /><br />
+            </div>
+            <div class="ion-text-end" style="padding: 10px; cursor: pointer; outline: none;">
+              <ion-icon name="create-outline" color="primary" size="large"
+                (click)="moveToAddRestaurantPage(restaurant.id)"></ion-icon>
+              <ion-icon name="trash-outline" color="danger" size="large" (click)="deleteItem(restaurant.id)"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

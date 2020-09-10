@@ -1,0 +1,175 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> {{recipesType == 'add' ? 'Add recipe' : 'Edit recipe'}}</ion-title>
+    <ion-buttons *ngIf="recipesType == 'add'" slot="start">
+      <ion-menu-button color="light" menu="leftMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="recipesType == 'add'" slot="end">
+      <ion-menu-button color="light" menu="rightMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="type == 'edit'" slot="end">
+      <ion-button (click)="onDismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!this.userservice.userId">
+    <ion-text color="success" [routerLink]="['/login','SignIn']" style="cursor: pointer;">
+      <h1 style="text-align: center;">
+        You are not 'Signin'.
+      </h1>
+    </ion-text>
+  </div>
+
+  <div *ngIf="this.userservice.userId">
+    <div *ngIf="recipesType == 'add'">
+      <form #Formforadd="ngForm">
+
+        <ion-item>
+          <ion-label position="stacked">Product name</ion-label>
+          <ion-input autocomplete="name" type="text" name="productName" #productName="ngModel"
+            [(ngModel)]="addNewProduct.name" required></ion-input>
+          <ion-text color="danger" *ngIf="!productName.valid && productName.touched">
+            Product name is required
+          </ion-text>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Category</ion-label>
+          <ion-select placeholder="Please select a category" okText="Okay" cancelText="Dismiss" name="productcategory"
+            #productcategory="ngModel" [(ngModel)]="addNewProduct.productCategory" required>
+            <ion-select-option *ngFor="let productcategory of  RecipesServices.productCategories">
+              {{productcategory.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Image(Optional)</ion-label>
+          <ion-input autocomplete="image" type="text" name="image" #image="ngModel" placeholder="URL of image"
+            [(ngModel)]="addNewProduct.image"></ion-input>
+          <ion-text color="danger" *ngIf="!image.valid && image.touched">
+            Image is required
+          </ion-text>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">City</ion-label>
+          <ion-input autocomplete="city" type="text" name="city" #city="ngModel" [(ngModel)]="addNewProduct.city"
+            required>
+          </ion-input>
+          <ion-text color="danger" *ngIf="!city.valid && city.touched">
+            City is required
+          </ion-text>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label position="stacked">Ingredients</ion-label>
+          <ion-textarea autocomplete="ingredients" type="text" name="ingredients" #ingredients="ngModel"
+            [(ngModel)]="addNewProduct.Ingredients" required></ion-textarea>
+          <ion-text color="danger" *ngIf="!ingredients.valid && ingredients.touched">
+            Ingredients is required
+          </ion-text>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label position="stacked">Directions</ion-label>
+          <ion-textarea placeholder="Put each step on its own line" autocomplete="directions" type="text"
+            name="directions" #directions="ngModel" [(ngModel)]="addNewProduct.Directions" required></ion-textarea>
+          <ion-text color="danger" *ngIf="!directions.valid && directions.touched">
+            Directions is required
+          </ion-text>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Price</ion-label>
+          <ion-input autocomplete="price" type="number" name="price" #price="ngModel" [(ngModel)]="addNewProduct.price"
+            required>
+          </ion-input>
+          <ion-text color="danger" *ngIf="!price.valid && price.touched">
+            Price is required
+          </ion-text>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Description(Optional)</ion-label>
+          <ion-textarea autocomplete="description" type="text" name="description" #description="ngModel"
+            [(ngModel)]="addNewProduct.description"></ion-textarea>
+          <ion-text color="danger" *ngIf="!description.valid && description.touched">
+            Description is required
+          </ion-text>
+        </ion-item>
+
+
+
+        <div *ngIf="loading == true">
+          <ion-text>
+            Please wait for few seconds.Thank you
+          </ion-text>
+        </div>
+      </form>
+
+    </div>
+
+    <div *ngIf="type == 'edit'">
+      <form [formGroup]="recipeEditForm">
+        <ion-item>
+          <ion-label position="stacked">Product name</ion-label>
+          <ion-input type="text" formControlName="name" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Image</ion-label>
+          <ion-input type="text" placeholder="URL of image" formControlName="image" #images required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <img [src]="images.value" height="100px;" required>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">City</ion-label>
+          <ion-input type="text" formControlName="city" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Price</ion-label>
+          <ion-input type="number" formControlName="price" required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Ingredients</ion-label>
+          <ion-textarea type="number" formControlName="Ingredients" required>
+          </ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Directions</ion-label>
+          <ion-textarea type="number" formControlName="Directions" required>
+          </ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Description</ion-label>
+          <ion-textarea autoGrow="true" type="text" formControlName="description" required></ion-textarea>
+        </ion-item>
+      </form>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer *ngIf="this.userservice.userId">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button *ngIf="recipesType == 'add'" (click)="newProduct()">Submit</ion-button>
+      <ion-button *ngIf="type == 'edit'" (click)="onRecipeEdit()">Submit</ion-button>
+      <ion-button type="reset" (click)="reset()">Reset</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

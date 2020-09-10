@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> {{usertype == 'SuperUser' ? 'Food Category Request' : 'Food Category Request'}}</ion-title>
+    <ion-buttons *ngIf="usertype == 'SuperUser'" slot="start">
+      <ion-menu-button color="light" menu="leftMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="usertype == 'SuperUser'" slot="end">
+      <ion-menu-button color="light" menu="rightMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="Request">
+      <ion-button (click)="onDismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="Request">
+    <form #formData="ngForm">
+      <ion-item>
+        <ion-label position="floating">Enter food Tag/Category name</ion-label>
+        <ion-input type="text" name="foodTag" #foodTag="ngModel" [(ngModel)]="food.Tagname"></ion-input>
+        <ion-text color="danger" *ngIf="!foodTag.valid && foodTag.touched">Tag name required</ion-text>
+      </ion-item>
+      <ion-button (click)="submit(formData)">Submit</ion-button>
+      <ion-button type="reset" (click)="resetErrorMessage()">Reset</ion-button>
+    </form>
+    <ion-text *ngIf="error">{{error}}</ion-text>
+  </ion-grid>
+
+  <ion-card *ngIf="usertype == 'SuperUser'">
+    <ion-card-header color="success" class="ion-text-center">
+      User's request for tag name
+    </ion-card-header><br /><br />
+    <ion-card-content *ngFor="let foodCategory of restaurantservice.customfoodcategory">
+      <ion-text color="success">Tag name: </ion-text>
+      <ion-text>{{foodCategory.Tagname}}</ion-text><br /><br />
+      <ion-text color="success">User id: </ion-text>
+      <ion-text>{{foodCategory.UserId}}</ion-text><br /><br />
+    </ion-card-content>
+  </ion-card>
+</ion-content>

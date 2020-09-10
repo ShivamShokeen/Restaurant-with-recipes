@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Recipes</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button color="light" menu="leftMenu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-icon slot="end" style="font-size: 30px;padding-right: 17px;cursor: pointer;" name="cart"
+    [routerLink]="['/shopping-edit']"></ion-icon>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngFor="let recipes of this.recipesServices.recipesData
+  ">
+    <ion-card><br />
+      <ion-row [routerLink]="['/recipes-details',recipes.id]">
+        <!-- <ion-input type="color">Click to choose color palette</ion-input> -->
+        <ion-col size-md="2" style="cursor: pointer; width: 100%;">
+          <img src={{recipes.image}}>
+        </ion-col>
+        <ion-col size-md="10" style="cursor: pointer;">
+          <b>
+            {{recipes.name}}
+          </b>
+          <br /><br />
+          <ion-text color="success">
+            &#8377; {{recipes.price}}
+          </ion-text>
+          <br /><br />
+          <ion-text color="medium">
+            {{recipes.description}}
+          </ion-text><br /><br />
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
+</ion-content>

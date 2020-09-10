@@ -1,0 +1,155 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title *ngFor="let detail of detailFilter">{{detail.name}}</ion-title>
+    <div class="ion-text-end" *ngIf="userservice.userId">
+      <ion-badge color="light" *ngIf="this.Shopping.Total">Total: {{this.Shopping.Total}}</ion-badge>&nbsp;&nbsp;
+    </div>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="userservice.userId">
+      <ion-icon name="cart-outline" [routerLink]="['/shopping-edit']" style="font-size: 29px;"></ion-icon>
+      <ion-text *ngIf="this.Shopping.productQuantity.length > 0">{{this.Shopping.productQuantity.length}}</ion-text>
+      <ion-menu-button color="light" menu="rightMenu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!this.userservice.userId">
+    <ion-text color="success" [routerLink]="['/login','SignIn']" style="cursor: pointer;">
+      <h1 style="text-align: center;">
+        You are not 'Signin'.
+      </h1>
+    </ion-text>
+  </div>
+
+  <div *ngIf="this.userservice.userId">
+    <ion-grid *ngFor="let detail of detailFilter">
+
+      <ion-row style="width: 100%; justify-content: center">
+        <ion-col size-sm="4.5" size-xs="4.5" size-md="4.5">
+          <img src={{detail.image}}>
+        </ion-col>
+      </ion-row><br />
+      <ion-item>
+        <ion-row>
+          <!-- <ion-col size-sm="7.5" size-xs="7.5" size-md="7.5"> -->
+          <ion-col>
+            <ion-text>
+              <b>
+                {{detail.name}}
+              </b>
+            </ion-text>
+            <br /><br />
+            <!-- 
+          <ion-text>Address: {{detail.address}}</ion-text><br /><br />
+          <ion-text class="light">Price: </ion-text>
+          <ion-text color="success"> &#8377;{{detail.price}}</ion-text>
+          <br /><br /> -->
+            <!-- <ion-row>
+        <ion-text class="light">Timing - </ion-text>
+        <ion-text>add toogle </ion-text>
+      </ion-row> -->
+            <!-- <ion-item> -->
+            <ion-text>
+              <ion-text class="light">Description:</ion-text>
+              {{detail.description}}
+            </ion-text><br /><br />
+            <!-- <ion-text>
+              <ion-text class="light">Seller name:</ion-text>
+              {{detail.sellerName}}
+            </ion-text><br /><br /> -->
+          </ion-col>
+        </ion-row>
+      </ion-item>
+
+      <ion-row>
+        <ion-col size-md="6">
+          <ion-item>
+            <ion-text>
+              <b>Ingredients :</b>
+            </ion-text>
+          </ion-item><br />
+          <ol>
+            {{detail.Ingredients}}
+            <!-- <li>Kosher salt</li><br />
+            <li>1 Pound thinly-sliced chicken cutlets, cut into 1/2-inch-thick strips </li><br />
+            <li>3 tablespoons olive oil </li><br />
+            <li>8 tablespoons unsalted butter, cubed </li><br />
+            <li>6 cloves garlic, sliced </li><br />
+            <li>1/2 teaspoon crushed red pepper flakes </li><br />
+            <li>1/2 cup dry white wine </li><br />
+            <li>12 ounces angel hair pasta </li><br />
+            <li>1 teaspoon lemon zest plus the juice of 1 large lemon </li><br />
+            <li>1/2 cup freshly grated Parmesan </li><br />
+            <li>1/2 cup chopped fresh Italian parsley </li><br /> -->
+          </ol>
+        </ion-col>
+
+        <ion-col size-md="6">
+          <ion-item>
+            <ion-text>
+              Directions :
+            </ion-text>
+          </ion-item><br />
+          <ol>
+            <ion-text class="item-text-wrap"><p>{{addingSpaceToIngredients}}</p></ion-text>
+
+            <!-- {{detail.Directions}} -->
+            <!-- <li>
+              Bring a large pot of salted water to a boil for the pasta. Sprinkle the chicken with some salt. Heat a
+              large skillet over medium-high heat until hot, then add the oil. Working in 2 batches, brown the chicken
+              until golden but not cooked through, 2 to 3 minutes per batch. Remove the chicken to a plate.
+            </li><br />
+            <li>
+              Melt 4 tablespoons of the butter in the skillet. Add the garlic and red pepper flakes and cook until the
+              garlic just begins to turn golden at the edges, 30 seconds to 1 minute. Add the wine, bring to a simmer
+              and cook until reduced by half, about 2 minutes. Remove from the heat.
+            </li><br />
+            <li>
+              Meanwhile, cook the pasta until very al dente, reserving 1 cup of the pasta water. Add the pasta and 3/4
+              cup pasta water to the skillet along with the chicken, lemon zest and juice and the remaining 4
+              tablespoons butter. Return the skillet to medium-low heat and gently stir the pasta until the butter is
+              melted, adding the remaining 1/4 pasta water if the pasta seems too dry. Remove the skillet from the
+              heat, sprinkle with the grated cheese and parsley and toss before serving.
+            </li><br /> -->
+          </ol>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-button fill="clear" (click)="showPriceOptions()">You can also place order.
+            text</ion-button><br />
+
+          <div *ngIf="showPrice == true">
+            <div *ngIf="this.userservice.userId">
+              <ion-select interface="action-sheet" placeholder="Select One" okText="Okay" cancelText="Dismiss"
+                #quantity>
+                <ion-select-option value=1>1</ion-select-option>
+                <ion-select-option value=2>2</ion-select-option>
+                <ion-select-option value=3>3</ion-select-option>
+                <ion-select-option value=4>4</ion-select-option>
+                <ion-select-option value=5>5</ion-select-option>
+              </ion-select>
+              <ion-button fill="clear" color="danger" (click)="cartSelect(quantity)">
+                Add to cart
+              </ion-button>
+            </div>
+          </div>
+        </ion-col>
+
+        <ion-col>
+          <div *ngIf="this.userservice.userId">
+            <ion-button (click)="Workinprogress()">
+              <ion-icon name="star" size="small"> </ion-icon> Add a review
+            </ion-button>
+          </div>
+          <ion-button color="danger" (click)="Workinprogress()">Direction</ion-button>
+          <ion-button color="danger" (click)="Workinprogress()">Share</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

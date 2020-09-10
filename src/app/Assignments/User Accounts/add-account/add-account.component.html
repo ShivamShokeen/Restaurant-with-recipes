@@ -1,0 +1,30 @@
+<div>
+  <ion-grid>
+    <ion-list>
+      <ion-row>
+        <ion-col size-xs="4" size-sm="4" size-md="5.5" size-xl="12" size-lg="12">
+          <ion-label color="primary" style="text-align: center;">
+            Account Details
+          </ion-label>
+          <br /><br />
+          <ion-label color="danger">
+            Enter name
+          </ion-label>
+          <br /><br />
+          <ion-input style="background-color: black; color: white;" type="text"
+            placeholder="Example = shivam" #username></ion-input>
+          <br /><br />
+          <ion-label color="danger">
+            Enter Account Number
+          </ion-label>
+          <br /><br />
+          <ion-input style="background-color: black; color: white;" type="text"
+            placeholder="Example = 4003-8301-7187-4018" #useraccountnumber></ion-input>
+          <br /><br />
+          <ion-button color="primary" (click)="addaccount(username,useraccountnumber)" style="cursor: pointer;">Add
+            Account</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </ion-grid>
+</div>

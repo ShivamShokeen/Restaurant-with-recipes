@@ -1,0 +1,17 @@
+<div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card *ngIf="server.value == 'server'  || server.value == 'blueprint'">
+          <ion-card-header
+            [style.color]="server.value == 'server' ? 'green'  :server.value == 'blueprint' ?'blue':'black' ">
+            Server Name : {{server.name}}
+          </ion-card-header>
+          <ion-card-title style="padding-left: 14px;font-style: italic;">
+            Server Content : {{server.content}}
+          </ion-card-title>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
