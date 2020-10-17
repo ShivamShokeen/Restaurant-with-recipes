@@ -79,6 +79,10 @@ export class AddFoodItemPage implements OnInit {
       this.addNewProduct.productCategory = this.removeSpace;
       this.http.post('https://restaurant-f5ce2.firebaseio.com/foodList.json', this.addNewProduct).subscribe(responseData => {
         this.router.navigate(['/restaurant-home']); this.Restaurantservice.reload();
+      },error=>{
+        if(error.status == 401){
+          this.errorMessage();
+        }
       });
     }
   }
@@ -134,7 +138,11 @@ export class AddFoodItemPage implements OnInit {
       if (this.foodData.price != 0) {
         let specificKey: string;
         specificKey = 'https://restaurant-f5ce2.firebaseio.com/foodList/' + this.restaurantId + '.json';
-        this.http.put(specificKey, this.foodData).subscribe((responseData) => { this.onDismiss(); this.router.navigate(['/restaurant-home']); this.Restaurantservice.reload(); });
+        this.http.put(specificKey, this.foodData).subscribe((responseData) => { this.onDismiss(); this.router.navigate(['/restaurant-home']); this.Restaurantservice.reload(); },error=>{
+          if(error.status == 401){
+            this.errorMessage();
+          }
+        });
       }
     }
     else {
@@ -169,6 +177,16 @@ export class AddFoodItemPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async errorMessage() {
+    const toast = await this.toastController.create({
+      message: "You need to create your own firebase account and you can take help of 'Step video' that is available on my app 'BuildX Projects'.",
+      duration: 4000,
+      position: "bottom",
+      color: "danger"
+    });
+    toast.present();
   }
 
 }

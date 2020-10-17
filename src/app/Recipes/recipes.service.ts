@@ -12,6 +12,54 @@ export class recipeservices {
     sellerDetails: any;
     VerifiedRecipeProduct: any;
     restaurantData = [];
+    productCategories = [
+        {
+            name: "Today's Exclusive"
+        },
+        {
+            name: "Starters"
+        },
+        {
+            name: "Rice and Biryani"
+        },
+        {
+            name: "Main Course"
+        },
+        {
+            name: "Tawa Specials"
+        },
+        {
+            name: "Combos"
+        },
+        {
+            name: "Rice Bowl"
+        },
+        {
+            name: "Salads"
+        },
+        {
+            name: "Breads"
+        },
+        {
+            name: "Momos"
+        },
+        {
+            name: "Accompaniments"
+        },
+        {
+            name: "Desserts"
+        },
+        {
+            name: "Soft Drinks"
+        },
+        {
+            name: "Hard Drinks"
+        },
+        {
+            name: "Non-veg"
+        },
+    ];
+        
 
     constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router, public alertController: AlertController, public userservice: userService) {  this.getRecipes(); }
 
@@ -55,11 +103,6 @@ export class recipeservices {
     verifyRecipeProduct(ProductId) {
         this.VerifiedRecipeProduct = this.recipesData.filter((value) => value.userId == ProductId);
     }
-
-
-
-
-
 
     organizations = [
         {

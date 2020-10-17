@@ -42,7 +42,7 @@ export class AddRecipePage implements OnInit {
 
   @ViewChild('Formforadd', { static: false }) Form;
 
-  constructor(private route: ActivatedRoute, public RecipesServices: recipeservices, public modalController: ModalController, public alertController: AlertController, public userservice: userService, private http: HttpClient, private router: Router) { }
+  constructor(private route: ActivatedRoute, public RecipesServices: recipeservices, public modalController: ModalController, public alertController: AlertController, public userservice: userService, private http: HttpClient, private router: Router,) { }
 
   ngOnInit() {
     this.recipesType = this.route.snapshot.queryParams['Recipetype'];

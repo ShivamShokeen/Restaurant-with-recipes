@@ -36,8 +36,9 @@ export class EditFoodItemsPage implements OnInit {
   }
 
   deleteItem(productId) {
-    firebase.database().ref().child('/Restaurantproducts/' + productId).remove();
-    this.deleteProductMessage();
+    this.errorMessage();
+    // firebase.database().ref().child('/Restaurantproducts/' + productId).remove();
+    // this.deleteProductMessage();
   }
 
   async deleteProductMessage() {
@@ -84,5 +85,14 @@ export class EditFoodItemsPage implements OnInit {
     await alert.present();
   }
 
+  async errorMessage() {
+    const toast = await this.toastController.create({
+      message: "You need to create your own firebase account and you can take help of 'Step video' that is available on my app 'BuildX Projects'.",
+      duration: 4000,
+      position: "bottom",
+      color: "danger"
+    });
+    toast.present();
+  }
 
 }

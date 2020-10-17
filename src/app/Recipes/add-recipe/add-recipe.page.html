@@ -41,7 +41,7 @@
           <ion-label position="floating">Category</ion-label>
           <ion-select placeholder="Please select a category" okText="Okay" cancelText="Dismiss" name="productcategory"
             #productcategory="ngModel" [(ngModel)]="addNewProduct.productCategory" required>
-            <ion-select-option *ngFor="let productcategory of  RecipesServices.productCategories">
+            <ion-select-option *ngFor="let productcategory of RecipesServices.productCategories">
               {{productcategory.name}}</ion-select-option>
           </ion-select>
         </ion-item>
